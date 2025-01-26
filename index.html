@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown to Your Special Day</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fadadd);
+      color: #333;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+    }
+
+    #countdown {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #message {
+      display: none;
+      font-size: 1.8rem;
+      color: #ff6b6b;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Countdown to Your Special Day 🎉</h1>
+  <div id="countdown">00:00:00</div>
+  <div id="message">Happy Birthday, Alangkrita! 🎂🎉❤️</div>
+
+  <script>
+    function startCountdown() {
+      const birthday = new Date(); // Current date
+      birthday.setHours(24, 0, 0, 0); // Set to midnight (12:00 AM) of the same day
+
+      function updateCountdown() {
+        const now = new Date();
+        const timeDiff = birthday - now;
+
+        if (timeDiff <= 0) {
+          // Show the message when countdown ends
+          document.getElementById("countdown").style.display = "none";
+          document.getElementById("message").style.display = "block";
+          clearInterval(interval);
+        } else {
+          const hours = String(Math.floor((timeDiff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+          const minutes = String(Math.floor((timeDiff / (1000 * 60)) % 60)).padStart(2, "0");
+          const seconds = String(Math.floor((timeDiff / 1000) % 60)).padStart(2, "0");
+
+          document.getElementById("countdown").textContent = `${hours}:${minutes}:${seconds}`;
+        }
+      }
+
+      updateCountdown(); // Call once immediately
+      const interval = setInterval(updateCountdown, 1000); // Update every second
+    }
+
+    startCountdown();
+  </script>
+</body>
+</html>
